@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: your-dockerhub-user/backend:latest
+          image: charansait372/backend:v1
           ports:
             - containerPort: 80
 
