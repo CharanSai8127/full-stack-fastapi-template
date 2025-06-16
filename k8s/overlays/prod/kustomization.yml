@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: prod
+nameprefix: prod-
+
+resources:
+  - ../../base
+  - namespace.yaml
+
+configMapGenerator:
+  - name: frontend-config
+    envs:
+      - config/frontend.env
+
+secretGenerator:
+  - name: db-secret
+    envs:
+      - secrets/db.env
+    type: Opaque
+
+generatorOptions:
+  disableNameSuffixHash: true  # Optional: avoid hash in name
+
