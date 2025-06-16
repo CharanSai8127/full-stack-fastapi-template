@@ -6,7 +6,7 @@ nameprefix: dev-
 
 resources:
   - ../../base
-  - namespace.yaml
+  - namespace.yml
 
 configMapGenerator:
   - name: frontend-config
