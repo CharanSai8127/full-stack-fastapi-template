@@ -28,10 +28,10 @@ spec:
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: stage-db-secret
+                  name: db-secret
                   key: DATABASE_URL
       volumes:
         - name: db-secret-volume
           secret:
-            secretName: stage-db-secret
+            secretName: db-secret
 
