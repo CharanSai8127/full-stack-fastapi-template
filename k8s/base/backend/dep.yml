@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
+  namespace: stage  # <-- optional if you're applying in a namespace
   labels:
     app: backend
 spec:
@@ -21,10 +22,16 @@ spec:
             - containerPort: 8000
           volumeMounts:
             - name: db-secret-volume
-              mountPath: "/etc/secrets"
+              mountPath: /etc/secrets/db
               readOnly: true
-      volume:
-        - name: db-secret
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: stage-db-secret
+                  key: DATABASE_URL
+      volumes:
+        - name: db-secret-volume
           secret:
-            secretName: db-secret
+            secretName: stage-db-secret
 
