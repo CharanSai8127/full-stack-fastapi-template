@@ -1,4 +1,4 @@
 resources:
-  - depl.yml
+  - dep.yml
   - service.yml
 
