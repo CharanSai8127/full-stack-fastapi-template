@@ -19,4 +19,7 @@ spec:
           image: postgres:13
           ports:
             - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: db-secret
 

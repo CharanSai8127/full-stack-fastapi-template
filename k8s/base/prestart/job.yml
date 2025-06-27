@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prestart
+  labels:
+    app: prestart
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: prestart
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: prestart
+          image: charansait372/backend:v1
+          command: ["bash", "scripts/prestart.sh"]
+          envFrom:
+            - configMapRef:
+                name: backend-config
+            - secretRef:
+                name: db-secret
+

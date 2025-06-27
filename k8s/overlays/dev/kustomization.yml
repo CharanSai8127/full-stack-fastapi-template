@@ -8,6 +8,9 @@ resources:
   - namespace.yml
 
 configMapGenerator:
+  - name: backend-config
+    envs:
+      - config/backend.env
   - name: frontend-config
     envs:
       - config/frontend.env
