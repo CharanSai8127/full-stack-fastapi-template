@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: stage
+  namespace: stage  # Change to dev/prod depending on overlay
   labels:
     app: backend
 spec:
@@ -23,6 +23,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: backend-config
+            - secretRef:
+                name: db-secret
           env:
             - name: DATABASE_URL
               valueFrom:
