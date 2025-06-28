@@ -32,8 +32,10 @@ spec:
                   key: DATABASE_URL
           readinessProbe:
             httpGet:
-              path: /health
+              path: /ping
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
 
