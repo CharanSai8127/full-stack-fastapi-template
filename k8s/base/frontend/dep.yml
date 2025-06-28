@@ -25,4 +25,10 @@ spec:
                 configMapKeyRef:
                   name: frontend-config
                   key: BACKEND_URL
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
 

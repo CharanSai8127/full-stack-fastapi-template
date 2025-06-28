@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: stage  # Change to dev/prod depending on overlay
   labels:
     app: backend
 spec:
@@ -31,4 +30,10 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: DATABASE_URL
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
 

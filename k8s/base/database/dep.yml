@@ -22,4 +22,10 @@ spec:
           envFrom:
             - secretRef:
                 name: db-secret
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+            initialDelaySeconds: 10
+            periodSeconds: 10
 
