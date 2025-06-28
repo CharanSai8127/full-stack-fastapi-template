@@ -6,6 +6,11 @@ namespace: stage
 resources:
   - ../../base
   - namespace.yml
+  - hpa/frontend-hpa.yml
+  - hpa/backend-hpa.yml
+  - netpol-stage.yml
+  - pvc/storage-class.yml
+  - pvc/pvc.yml
 
 configMapGenerator:
   - name: backend-config
