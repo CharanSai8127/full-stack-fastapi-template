@@ -31,13 +31,10 @@ spec:
                   name: db-secret
                   key: DATABASE_URL
           readinessProbe:
-            httpGet:
-              path: /api/v1/health
+            tcpSocket:
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10
-            timeoutSeconds: 2
-            failureThreshold: 3
           resources:
             requests:
               cpu: "200m"
