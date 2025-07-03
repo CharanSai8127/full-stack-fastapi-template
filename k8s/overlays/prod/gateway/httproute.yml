@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: app-route
+  namespace: prod         # e.g., frontend, or nginx-gateway
+spec:
+  parentRefs:
+    - name: app-gateway
+      namespace: nginx-gateway
+  hostnames:
+    - my-app.example.com                    # ⬅️ Must match Gateway & Certificate
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: frontend                 # ⬅️ Your frontend service name
+          port: 80
+

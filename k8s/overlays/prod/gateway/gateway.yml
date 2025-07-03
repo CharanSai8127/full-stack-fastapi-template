@@ -1,0 +1,21 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: app-gateway
+  namespace: nginx-gateway
+spec:
+  gatewayClassName: nginx
+  listeners:
+    - name: https
+      hostname: my-app.example.com         # ⬅️ Must match your TLS certificate's DNS name
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+        - kind: Secret
+          name: my-app-tls            # ⬅️ Name of the cert-manager secret
+  addresses:
+    - type: Hostname
+      value: my-app.example.com
+

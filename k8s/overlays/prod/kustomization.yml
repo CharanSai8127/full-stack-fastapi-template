@@ -11,6 +11,9 @@ resources:
   - netpol-prod.yml
   - pvc/storage-class.yml
   - pvc/pvc.yml
+  - gateway/gateway.yml
+  - gateway/httproute.yml
+
 
 configMapGenerator:
   - name: backend-config
