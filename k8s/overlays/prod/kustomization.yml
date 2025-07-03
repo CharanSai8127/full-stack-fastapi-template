@@ -13,6 +13,9 @@ resources:
   - pvc/pvc.yml
   - gateway/gateway.yml
   - gateway/httproute.yml
+  - certs/issuer.yml
+  - certs/certificate.yml
+
 
 
 configMapGenerator:
@@ -28,6 +31,10 @@ secretGenerator:
     envs:
       - secrets/db.env
     type: Opaque
+
+patchesStrategicMerge:
+  - backend-volume-patch-prod.yml
+
 
 generatorOptions:
   disableNameSuffixHash: true  # Optional: avoid hash in name

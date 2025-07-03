@@ -7,15 +7,16 @@ spec:
   gatewayClassName: nginx
   listeners:
     - name: https
-      hostname: my-app.example.com         # ⬅️ Must match your TLS certificate's DNS name
+      hostname: my-app.example.com
       port: 443
       protocol: HTTPS
       tls:
         mode: Terminate
         certificateRefs:
-        - kind: Secret
-          name: my-app-tls            # ⬅️ Name of the cert-manager secret
-  addresses:
-    - type: Hostname
-      value: my-app.example.com
+          - kind: Secret
+            name: my-app-tls
+        # cert-manager Secret must be in nginx-gateway
+      allowedRoutes:
+        namespaces:
+          from: All
 

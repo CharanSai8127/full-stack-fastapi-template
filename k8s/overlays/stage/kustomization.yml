@@ -26,6 +26,9 @@ secretGenerator:
       - secrets/db.env
     type: Opaque
 
+patchesStrategicMerge:
+  - backend-volume-patch-stage.yml  # ➕ Mount PVC into backend pod
+
 generatorOptions:
-  disableNameSuffixHash: true  # Optional: avoid hash in name
+  disableNameSuffixHash: true
 

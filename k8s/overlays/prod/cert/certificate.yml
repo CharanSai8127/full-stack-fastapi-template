@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-app-cert
+  namespace: nginx-gateway
+spec:
+  secretName: my-app-tls
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizations:
+      - MyOrg
+  commonName: my-app.example.com
+  dnsNames:
+    - my-app.example.com
+  issuerRef:
+    name: selfsigned-issuer
+    kind: Issuer
+
