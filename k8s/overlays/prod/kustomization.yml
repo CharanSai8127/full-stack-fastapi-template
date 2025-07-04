@@ -13,8 +13,8 @@ resources:
   - pvc/pvc.yml
   - gateway/gateway.yml
   - gateway/httproute.yml
-  - certs/issuer.yml
-  - certs/certificate.yml
+  - cert/issuer.yml
+  - cert/certificate.yml
 
 
 
