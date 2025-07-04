@@ -27,7 +27,11 @@ secretGenerator:
     type: Opaque
 
 patches:
-  - backend-volume-patch-stage.yml  # ➕ Mount PVC into backend pod
+  - target:
+      kind: Deployment
+      name: backend
+    path: backend-volume-patch-prod.yml
+
 
 generatorOptions:
   disableNameSuffixHash: true

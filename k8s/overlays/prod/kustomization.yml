@@ -33,7 +33,11 @@ secretGenerator:
     type: Opaque
 
 patches:
-  - backend-volume-patch-prod.yml
+  - target:
+      kind: Deployment
+      name: backend
+    path: backend-volume-patch-prod.yml
+
 
 
 generatorOptions:
