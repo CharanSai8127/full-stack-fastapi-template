@@ -26,7 +26,7 @@ secretGenerator:
       - secrets/db.env
     type: Opaque
 
-patchesStrategicMerge:
+patches:
   - backend-volume-patch-stage.yml  # ➕ Mount PVC into backend pod
 
 generatorOptions:

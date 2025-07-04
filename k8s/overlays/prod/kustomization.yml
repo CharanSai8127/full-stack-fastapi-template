@@ -32,7 +32,7 @@ secretGenerator:
       - secrets/db.env
     type: Opaque
 
-patchesStrategicMerge:
+patches:
   - backend-volume-patch-prod.yml
 
 
