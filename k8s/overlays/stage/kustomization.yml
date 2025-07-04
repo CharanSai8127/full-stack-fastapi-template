@@ -28,9 +28,22 @@ secretGenerator:
 
 patches:
   - target:
+      group: apps
+      version: v1
       kind: Deployment
       name: backend
-    path: backend-volume-patch-prod.yml
+    patch: |
+      - op: add
+        path: /spec/template/spec/volumes/-
+        value:
+          name: db-storage
+          persistentVolumeClaim:
+            claimName: db-pvc
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          name: db-storage
+          mountPath: /app/data
 
 
 generatorOptions:
