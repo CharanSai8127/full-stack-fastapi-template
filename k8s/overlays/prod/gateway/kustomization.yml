@@ -4,8 +4,7 @@ kind: Kustomization
 namespace: nginx-gateway
 
 resources:
-  - ../gateway/gateway.yml
-  - ../cert/issuer.yml
-  - ../cert/certificate.yml
-
+  - gateway.yml
+  - cert/issuer.yml
+  - cert/certificate.yml
 
