@@ -15,8 +15,7 @@ spec:
         certificateRefs:
           - kind: Secret
             name: my-app-tls
-        # cert-manager Secret must be in nginx-gateway
-      allowedRoutes:
+      allowedRoutes:              # ✅ Move this out of tls block
         namespaces:
           from: All
 

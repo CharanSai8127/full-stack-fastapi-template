@@ -11,12 +11,9 @@ resources:
   - netpol-prod.yml
   - pvc/storage-class.yml
   - pvc/pvc.yml
-  - gateway/gateway.yml
-  - gateway/httproute.yml
-  - cert/issuer.yml
-  - cert/certificate.yml
-
-
+  - gateway/httproute.yml  # remains in prod
+  - nginx-gateway/         # << add this line to pull in the separate kustomization
+                           # gateway.yml, issuer.yml, certificate.yml now come from here
 
 configMapGenerator:
   - name: backend-config
@@ -51,9 +48,6 @@ patches:
           name: db-storage
           mountPath: /app/data
 
-
-
-
 generatorOptions:
-  disableNameSuffixHash: true  # Optional: avoid hash in name
+  disableNameSuffixHash: true
 

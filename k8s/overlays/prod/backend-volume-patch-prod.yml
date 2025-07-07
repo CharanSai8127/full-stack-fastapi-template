@@ -9,7 +9,7 @@ spec:
       volumes:
         - name: db-storage
           persistentVolumeClaim:
-            claimName: postgres-pvc
+            claimName: db-pvc
       containers:
         - name: backend
           volumeMounts:
