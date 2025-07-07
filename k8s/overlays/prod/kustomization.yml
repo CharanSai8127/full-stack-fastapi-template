@@ -1,6 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: prod
+
 resources:
   - ../../base
   - namespace.yml
@@ -9,9 +11,7 @@ resources:
   - netpol-prod.yml
   - pvc/storage-class.yml
   - pvc/pvc.yml
-  - httproute.yml  # remains in prod
-  - gateway/         # << add this line to pull in the separate kustomization
-                           # gateway.yml, issuer.yml, certificate.yml now come from here
+  - httproute.yml  # stays here as it targets prod namespace
 
 configMapGenerator:
   - name: backend-config
