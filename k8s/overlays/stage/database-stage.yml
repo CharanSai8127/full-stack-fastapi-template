@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: postgres
   namespace: stage
 spec:
   template:
     spec:
       volumes:
-        - name: db-storage
+        - name: postgres-data
           persistentVolumeClaim:
             claimName: db-pvc
       containers:
-        - name: backend
+        - name: postgres
           volumeMounts:
-            - name: db-storage
-              mountPath: /app/data
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
 

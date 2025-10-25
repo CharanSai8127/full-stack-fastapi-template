@@ -10,8 +10,8 @@ resources:
   - hpa/backend-hpa.yml
   - netpol-prod.yml
   - pvc/storage-class.yml
-  - pvc/pvc.yml
-  - httproute.yml  # stays here as it targets prod namespace
+  - httproute.yml
+  - database-statefulset.yml  # StatefulSet replaces database Deployment
 
 configMapGenerator:
   - name: backend-config
@@ -26,25 +26,6 @@ secretGenerator:
     envs:
       - secrets/db.env
     type: Opaque
-
-patches:
-  - target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: backend
-    patch: |
-      - op: add
-        path: /spec/template/spec/volumes/-
-        value:
-          name: db-storage
-          persistentVolumeClaim:
-            claimName: db-pvc
-      - op: add
-        path: /spec/template/spec/containers/0/volumeMounts/-
-        value:
-          name: db-storage
-          mountPath: /app/data
 
 generatorOptions:
   disableNameSuffixHash: true
