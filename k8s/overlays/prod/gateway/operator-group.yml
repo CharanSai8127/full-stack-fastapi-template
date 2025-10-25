@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: gateway-operatorgroup
+  namespace: nginx-gateway
+spec:
+  targetNamespaces:
+    - nginx-gateway
+    - prod
+
