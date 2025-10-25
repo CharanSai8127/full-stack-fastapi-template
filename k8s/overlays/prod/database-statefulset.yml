@@ -39,7 +39,7 @@ spec:
               memory: "1Gi"
           volumeMounts:
             - name: postgres-data
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql/data/pgdata
   volumeClaimTemplates:
     - metadata:
         name: postgres-data
