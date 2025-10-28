@@ -1,0 +1,8 @@
+resources:
+  - monitoring/service-monitor.yml
+  - monitoring/alertmanager.yml
+  - monitoring/alertmanager-config.yml
+  - monitoring/postgres-exporter.yml
+  - monitoring/nginx-gateway-metrics.yml
+  - monitoring/kube-events-exporter.yml
+

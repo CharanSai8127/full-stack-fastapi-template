@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: postgres
+        app.kubernetes.io/part-of : monitoring 
     spec:
       containers:
         - name: postgres

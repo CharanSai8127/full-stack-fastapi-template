@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-events-exporter
+  namespace: monitoring
+  labels:
+    app: kube-events-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-events-exporter
+  template:
+    metadata:
+      labels:
+        app: kube-events-exporter
+    spec:
+      serviceAccountName: kube-events-exporter
+      containers:
+        - name: kube-events-exporter
+          image: ghcr.io/opsgenie/kubernetes-event-exporter:v0.11
+          ports:
+            - name: metrics
+              containerPort: 9102
+          volumeMounts:
+            - name: config
+              mountPath: /etc/config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: kube-events-exporter-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-events-exporter-config
+  namespace: monitoring
+data:
+  config.yaml: |
+    logLevel: info
+    logFormat: json
+    route:
+      routes:
+        - match:
+            - reason: "Failed"
+          receiver: "stdout"
+    receivers:
+      - name: "stdout"
+        stdout: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-events-exporter
+  namespace: monitoring
+  labels:
+    app: kube-events-exporter
+    metrics: enabled
+spec:
+  selector:
+    app: kube-events-exporter
+  ports:
+    - name: metrics
+      port: 9102
+      targetPort: 9102
+

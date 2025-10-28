@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: alertmanager-config
+  namespace: monitoring
+  labels:
+    team: devops
+spec:
+  route:
+    receiver: "devops-team"
+    groupBy: ["alertname", "namespace"]
+    repeatInterval: 1h
+  receivers:
+    - name: "devops-team"
+      emailConfigs:
+        - to: "devops@example.com"
+          sendResolved: true
+          smarthost: "smtp.gmail.com:587"
+          from: "alertmanager@example.com"
+          authUsername: "alertmanager@example.com"
+          authIdentity: "alertmanager@example.com"
+          authPassword:
+            name: smtp-secret
+            key: password
+

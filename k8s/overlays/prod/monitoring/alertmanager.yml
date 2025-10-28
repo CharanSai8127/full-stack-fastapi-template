@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  name: alertmanager
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  replicas: 1
+  alertmanagerConfigSelector:
+    matchLabels:
+      team: devops
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 100m
+    limits:
+      memory: 200Mi
+      cpu: 200m
+

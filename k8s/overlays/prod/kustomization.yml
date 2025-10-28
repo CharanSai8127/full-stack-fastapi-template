@@ -11,7 +11,10 @@ resources:
   - netpol-prod.yml
   - pvc/storage-class.yml
   - httproute.yml
-  - database-statefulset.yml  # StatefulSet replaces database Deployment
+  - database-statefulset.yml
+  - frontend-metrics-service.yml
+  - backend-metrics-service.yml
+  - database-metrics-service.yml
 
 configMapGenerator:
   - name: backend-config
