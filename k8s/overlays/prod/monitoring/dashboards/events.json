@@ -1,0 +1,60 @@
+{
+  "id": null,
+  "uid": "events-dashboard",
+  "title": "Kubernetes Events & Cluster Problems",
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Events /min (all types)",
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "sum(increase({__name__=~\"kube_event.*|kube_events.*|kube_event_count.*|kube_events_total.*\", namespace=\"prod\"}[5m]))",
+          "legendFormat": "events/5m"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Warnings vs Normal",
+      "gridPos": { "x": 0, "y": 6, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "sum(increase({__name__=~\"kube_event.*|kube_events.*|kube_event_count.*|kube_events_total.*\", namespace=\"prod\", type=\"Warning\"}[5m]))",
+          "legendFormat": "Warnings"
+        },
+        {
+          "expr": "sum(increase({__name__=~\"kube_event.*|kube_events.*|kube_event_count.*|kube_events_total.*\", namespace=\"prod\", type!=\"Warning\"}[5m]))",
+          "legendFormat": "Normal"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "title": "Top Event Sources (last 1h)",
+      "gridPos": { "x": 0, "y": 12, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "topk(10, sum by (involved_object_kind, involved_object_name, reason) (increase({__name__=~\"kube_event.*|kube_events.*|kube_event_count.*|kube_events_total.*\", namespace=\"prod\"}[1h])))",
+          "legendFormat": "{{involved_object_kind}}/{{involved_object_name}} - {{reason}}"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "CrashLoopBackOff & Pod Restarts (by pod)",
+      "gridPos": { "x": 0, "y": 20, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "increase(kube_pod_container_status_restarts_total{namespace=\"prod\"}[1h])",
+          "legendFormat": "{{pod}}"
+        }
+      ]
+    }
+  ]
+}
+

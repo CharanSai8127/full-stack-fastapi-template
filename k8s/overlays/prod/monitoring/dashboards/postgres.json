@@ -1,0 +1,108 @@
+{
+  "id": null,
+  "uid": "postgres-dashboard",
+  "title": "PostgreSQL Overview",
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Active Connections",
+      "gridPos": { "x": 0, "y": 0, "w": 4, "h": 4 },
+      "targets": [
+        {
+          "expr": "pg_stat_activity_count{job=\"postgres-exporter\", namespace=\"prod\"}",
+          "legendFormat": "connections"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Cache Hit Ratio",
+      "gridPos": { "x": 4, "y": 0, "w": 4, "h": 4 },
+      "targets": [
+        {
+          "expr": "pg_stat_database_blks_hit{job=\"postgres-exporter\", namespace=\"prod\"} / (pg_stat_database_blks_hit{job=\"postgres-exporter\", namespace=\"prod\"} + pg_stat_database_blks_read{job=\"postgres-exporter\", namespace=\"prod\"})",
+          "legendFormat": "ratio"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Deadlocks",
+      "gridPos": { "x": 8, "y": 0, "w": 4, "h": 4 },
+      "targets": [
+        {
+          "expr": "rate(pg_stat_database_deadlocks{job=\"postgres-exporter\", namespace=\"prod\"}[5m])",
+          "legendFormat": "deadlocks/s"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Slow Queries",
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "rate(pg_stat_activity_max_tx_duration_seconds{job=\"postgres-exporter\", namespace=\"prod\"}[5m])",
+          "legendFormat": "slow queries"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Tuples Returned vs Fetched",
+      "gridPos": { "x": 0, "y": 10, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "rate(pg_stat_database_tup_returned{job=\"postgres-exporter\", namespace=\"prod\"}[5m])",
+          "legendFormat": "returned"
+        },
+        {
+          "expr": "rate(pg_stat_database_tup_fetched{job=\"postgres-exporter\", namespace=\"prod\"}[5m])",
+          "legendFormat": "fetched"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Sequential vs Index Scans",
+      "gridPos": { "x": 0, "y": 16, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "rate(pg_stat_all_tables_seq_scan{job=\"postgres-exporter\", namespace=\"prod\"}[5m])",
+          "legendFormat": "seq scan"
+        },
+        {
+          "expr": "rate(pg_stat_all_tables_idx_scan{job=\"postgres-exporter\", namespace=\"prod\"}[5m])",
+          "legendFormat": "index scan"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "WAL Writes",
+      "gridPos": { "x": 0, "y": 22, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "rate(pg_xlog_write_bytes{job=\"postgres-exporter\", namespace=\"prod\"}[5m])",
+          "legendFormat": "WAL bytes/s"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Replication Lag (if enabled)",
+      "gridPos": { "x": 0, "y": 28, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "pg_replication_lag{job=\"postgres-exporter\", namespace=\"prod\"}",
+          "legendFormat": "lag seconds"
+        }
+      ]
+    }
+  ]
+}
+

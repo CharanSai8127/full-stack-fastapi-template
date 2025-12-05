@@ -1,8 +1,20 @@
 resources:
-  - monitoring/service-monitor.yml
-  - monitoring/alertmanager.yml
-  - monitoring/alertmanager-config.yml
-  - monitoring/postgres-exporter.yml
-  - monitoring/nginx-gateway-metrics.yml
-  - monitoring/kube-events-exporter.yml
+  - service-monitor.yml
+  - alertmanager.yml
+  - alertmanager-config.yml
+  - postgres-exporter.yml
+  - nginx-gateway-metrics.yml
+  - kube-events-exporter.yml
+
+configMapGenerator:
+  - name: grafana-dashboards
+    namespace: prod
+    files:
+      - dashboards/python-app.json
+      - dashboards/postgres.json
+      - dashboards/gateway.json
+      - dashboards/events.json
+    options:
+      labels:
+        grafana_dashboard: "1"
 
