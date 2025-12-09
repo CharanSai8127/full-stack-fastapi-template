@@ -15,22 +15,30 @@ spec:
     metadata:
       labels:
         app: postgres
-        app.kubernetes.io/part-of : monitoring 
+        app.kubernetes.io/part-of: monitoring
     spec:
       containers:
         - name: postgres
           image: postgres:13
           ports:
             - containerPort: 5432
+
+          #  IMPORTANT: Correct PGDATA location
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+
           envFrom:
             - secretRef:
                 name: db-secret
+
           readinessProbe:
             exec:
               command:
                 - pg_isready
             initialDelaySeconds: 10
             periodSeconds: 10
+
           resources:
             requests:
               cpu: "250m"
@@ -38,9 +46,13 @@ spec:
             limits:
               cpu: "500m"
               memory: "1Gi"
+
+          #  IMPORTANT: Mount PVC at correct parent directory
           volumeMounts:
             - name: postgres-data
-              mountPath: /var/lib/postgresql/data/persistent_data
+              mountPath: /var/lib/postgresql/data
+
+  # StatefulSet persistent volume creation
   volumeClaimTemplates:
     - metadata:
         name: postgres-data
@@ -50,4 +62,3 @@ spec:
           requests:
             storage: 5Gi
         storageClassName: ebs-standard
-
