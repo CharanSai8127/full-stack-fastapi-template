@@ -11,7 +11,9 @@ spec:
             claimName: db-pvc
       containers:
         - name: postgres
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           volumeMounts:
             - name: postgres-data
-              mountPath: /var/lib/postgresql/data/persistent_data
-
+              mountPath: /var/lib/postgresql/data
