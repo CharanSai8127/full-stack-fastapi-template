@@ -1,0 +1,49 @@
+{
+  "id": null,
+  "uid": "events-dashboard",
+  "title": "Kubernetes Events",
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Events / 5m",
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "sum(increase(kube_events_total{namespace=\"prod\"}[5m]))",
+          "legendFormat": "events"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Warnings vs Normal",
+      "gridPos": { "x": 0, "y": 6, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "sum(increase(kube_events_total{namespace=\"prod\",type=\"Warning\"}[5m]))",
+          "legendFormat": "Warning"
+        },
+        {
+          "expr": "sum(increase(kube_events_total{namespace=\"prod\",type!=\"Warning\"}[5m]))",
+          "legendFormat": "Normal"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Pod Restarts",
+      "gridPos": { "x": 0, "y": 12, "w": 12, "h": 6 },
+      "targets": [
+        {
+          "expr": "increase(kube_pod_container_status_restarts_total{namespace=\"prod\"}[1h])",
+          "legendFormat": "{{pod}}"
+        }
+      ]
+    }
+  ]
+}
+

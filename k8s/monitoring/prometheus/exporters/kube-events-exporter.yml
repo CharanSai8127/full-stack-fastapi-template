@@ -14,8 +14,8 @@ spec:
     metadata:
       labels:
         app: kube-events-exporter
+        metrics: enabled
     spec:
-      serviceAccountName: kube-events-exporter
       containers:
         - name: kube-events-exporter
           image: ghcr.io/opsgenie/kubernetes-event-exporter:v0.11
@@ -55,7 +55,6 @@ metadata:
   name: kube-events-exporter
   namespace: monitoring
   labels:
-    app: kube-events-exporter
     metrics: enabled
 spec:
   selector:

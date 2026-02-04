@@ -1,0 +1,15 @@
+resources:
+  - namespace.yml
+  - rbac.yml
+
+  - prometheus/servicemonitors/prod-services-monitor.yml
+  - prometheus/servicemonitors/nginx-gateway-monitor.yml
+
+  - prometheus/exporters/postgres-exporter.yml
+  - prometheus/exporters/kube-events-exporter.yml
+
+  - alertmanager/alertmanager.yml
+  - alertmanager/alertmanager-config.yml
+
+  - grafana/dashboards-cm.yml
+

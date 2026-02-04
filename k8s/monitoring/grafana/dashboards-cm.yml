@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: grafana
+  labels:
+    grafana_dashboard: "1"
+data:
+  python-app.json: |
+    {{ .Files.Get "grafana/dashboards/python-app.json" }}
+  postgres.json: |
+    {{ .Files.Get "grafana/dashboards/postgres.json" }}
+  gateway.json: |
+    {{ .Files.Get "grafana/dashboards/gateway.json" }}
+  events.json: |
+    {{ .Files.Get "grafana/dashboards/events.json" }}
+

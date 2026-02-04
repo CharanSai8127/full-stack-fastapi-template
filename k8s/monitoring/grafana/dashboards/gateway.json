@@ -1,0 +1,53 @@
+{
+  "id": null,
+  "uid": "gateway-dashboard",
+  "title": "NGINX Gateway Overview",
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Requests /s",
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+      "targets": [
+        {
+          "expr": "sum(rate(nginx_ingress_controller_requests_total{namespace=\"prod\"}[5m]))",
+          "legendFormat": "req/s"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "5xx Errors /s",
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+      "targets": [
+        {
+          "expr": "sum(rate(nginx_ingress_controller_requests_total{namespace=\"prod\",status=~\"5..\"}[5m]))",
+          "legendFormat": "errors/s"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Latency P50 / P90 / P99",
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50,sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{namespace=\"prod\"}[5m])) by (le))",
+          "legendFormat": "P50"
+        },
+        {
+          "expr": "histogram_quantile(0.90,sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{namespace=\"prod\"}[5m])) by (le))",
+          "legendFormat": "P90"
+        },
+        {
+          "expr": "histogram_quantile(0.99,sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{namespace=\"prod\"}[5m])) by (le))",
+          "legendFormat": "P99"
+        }
+      ]
+    }
+  ]
+}
+

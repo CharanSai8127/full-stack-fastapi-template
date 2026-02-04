@@ -7,18 +7,18 @@ metadata:
     team: devops
 spec:
   route:
-    receiver: "devops-team"
+    receiver: devops-team
     groupBy: ["alertname", "namespace"]
     repeatInterval: 1h
   receivers:
-    - name: "devops-team"
+    - name: devops-team
       emailConfigs:
-        - to: "devops@example.com"
+        - to: devops@example.com
           sendResolved: true
-          smarthost: "smtp.gmail.com:587"
-          from: "alertmanager@example.com"
-          authUsername: "alertmanager@example.com"
-          authIdentity: "alertmanager@example.com"
+          smarthost: smtp.gmail.com:587
+          from: alertmanager@example.com
+          authUsername: alertmanager@example.com
+          authIdentity: alertmanager@example.com
           authPassword:
             name: smtp-secret
             key: password
