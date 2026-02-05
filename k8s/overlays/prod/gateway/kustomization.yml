@@ -5,7 +5,6 @@ namespace: nginx-gateway
 
 resources:
   - namespace.yml
-  - operator-group.yml
   - gateway.yml
   - cert/issuer.yml
   - cert/certificate.yml
