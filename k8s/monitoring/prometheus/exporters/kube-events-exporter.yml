@@ -19,6 +19,9 @@ spec:
       containers:
         - name: kube-events-exporter
           image: ghcr.io/opsgenie/kubernetes-event-exporter:v0.11
+          args:
+            - "--config"
+            - "/etc/config/config.yaml"
           ports:
             - name: metrics
               containerPort: 9102
@@ -26,10 +29,18 @@ spec:
             - name: config
               mountPath: /etc/config
               readOnly: true
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
       volumes:
         - name: config
           configMap:
             name: kube-events-exporter-config
+
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -48,6 +59,7 @@ data:
     receivers:
       - name: "stdout"
         stdout: {}
+
 ---
 apiVersion: v1
 kind: Service
