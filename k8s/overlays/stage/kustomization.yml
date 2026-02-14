@@ -5,8 +5,6 @@ namespace: stage
 
 resources:
   - ../../base
-  - hpa/frontend-hpa.yml
-  - hpa/backend-hpa.yml
   - netpol-stage.yml
   - pvc/storage-class.yml
   - pvc/pvc.yml

@@ -5,8 +5,6 @@ namespace: prod
 
 resources:
   - ../../base
-  - hpa/frontend-hpa.yml
-  - hpa/backend-hpa.yml
   - netpol-prod.yml
   - pvc/storage-class.yml
   - httproute.yml
